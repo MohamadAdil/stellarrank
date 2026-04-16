@@ -2,7 +2,12 @@
 import { useState } from "react";
 import { FiPlus, FiMinus } from "react-icons/fi";
 
-const faqs = [
+type FAQ = {
+  q: string;
+  a: string;
+};
+
+const faqs: FAQ[] = [
   {
     q: "Do you work with specific contractors or builders?",
     a: "Yes, we have a trusted network of professionals, but we're also happy to collaborate with your preferred team.",
@@ -30,9 +35,9 @@ const faqs = [
 ];
 
 export default function FAQSection() {
-  const [openIndex, setOpenIndex] = useState(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
-  const toggle = (index) => {
+  const toggle = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
@@ -52,14 +57,11 @@ export default function FAQSection() {
 
         {/* FAQ List */}
         <div className="space-y-4">
-          {faqs.map((item, index) => {
+          {faqs.map((item, index: number) => {
             const isOpen = openIndex === index;
 
             return (
-              <div
-                key={index}
-                className="border-b border-gray-200 pb-4"
-              >
+              <div key={index} className="border-b border-gray-200 pb-4">
                 
                 {/* Question */}
                 <button

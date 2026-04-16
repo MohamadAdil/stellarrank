@@ -43,12 +43,13 @@ export default function WorksSection() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const cards = gsap.utils.toArray(".work-card");
+      // ✅ TYPE FIX HERE
+      const cards = gsap.utils.toArray<HTMLElement>(".work-card");
 
-      cards.forEach((card: any, i: number) => {
+      cards.forEach((card, i) => {
         const isLast = i === cards.length - 1;
 
-        // ✅ PIN (except last)
+        // PIN
         if (!isLast) {
           ScrollTrigger.create({
             trigger: card,
@@ -59,14 +60,14 @@ export default function WorksSection() {
           });
         }
 
-        // ✅ SCALE previous cards (depth effect)
+        // SCALE previous
         if (!isLast) {
           gsap.to(card, {
             scale: 0.92,
             opacity: 0.8,
             ease: "none",
             scrollTrigger: {
-              trigger: cards[i + 1],
+              trigger: cards[i + 1] as HTMLElement, // extra safety
               start: "top center",
               end: "top top",
               scrub: true,
@@ -74,7 +75,7 @@ export default function WorksSection() {
           });
         }
 
-        // ✅ ENTRY animation (slide up)
+        // ENTRY
         gsap.fromTo(
           card,
           { y: 120 },

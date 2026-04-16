@@ -1,13 +1,24 @@
 "use client";
 import { useState } from "react";
 
-const servicesData = {
+type ServiceItem = {
+  title: string;
+  desc: string;
+  price: string;
+  image?: string;
+  features?: string[];
+};
+
+type ServiceTab = "project" | "monthly";
+
+const servicesData: Record<ServiceTab, ServiceItem[]> = {
   project: [
     {
       title: "Digital Ads",
       desc: "Maximize visibility and results through digital campaigns that focus on conversions.",
       price: "$2,800+",
-      image: "https://cdn.prod.website-files.com/686f98b490e264b439df109f/68722aa261b8e8a2b3ca0d02_Casual%20Tablet%20Reader%20Engaging%20Digital%20Magazine%20with%20Vivid%20Red%20Design.jpeg",
+      image:
+        "https://cdn.prod.website-files.com/686f98b490e264b439df109f/68722aa261b8e8a2b3ca0d02_Casual%20Tablet%20Reader%20Engaging%20Digital%20Magazine%20with%20Vivid%20Red%20Design.jpeg",
       features: [
         "Campaign Setup",
         "Audience Targeting",
@@ -36,7 +47,8 @@ const servicesData = {
       title: "Digital Ads",
       desc: "Maximize visibility and results through digital campaigns.",
       price: "$800",
-      image: "https://cdn.prod.website-files.com/686f98b490e264b439df109f/68722aa261b8e8a2b3ca0d02_Casual%20Tablet%20Reader%20Engaging%20Digital%20Magazine%20with%20Vivid%20Red%20Design.jpeg",
+      image:
+        "https://cdn.prod.website-files.com/686f98b490e264b439df109f/68722aa261b8e8a2b3ca0d02_Casual%20Tablet%20Reader%20Engaging%20Digital%20Magazine%20with%20Vivid%20Red%20Design.jpeg",
       features: [
         "Campaign Setup",
         "Audience Targeting",
@@ -63,8 +75,8 @@ const servicesData = {
 };
 
 export default function ServicesSection() {
-  const [activeTab, setActiveTab] = useState("project");
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeTab, setActiveTab] = useState<ServiceTab>("project");
+  const [activeIndex, setActiveIndex] = useState<number>(0);
 
   return (
     <section className="bg-[#061224] text-white py-20">
@@ -83,7 +95,7 @@ export default function ServicesSection() {
 
         {/* Tabs */}
         <div className="flex gap-6 mb-10">
-          {["project", "monthly"].map((tab) => (
+          {(["project", "monthly"] as ServiceTab[]).map((tab) => (
             <button
               key={tab}
               onClick={() => {
@@ -127,11 +139,13 @@ export default function ServicesSection() {
               {/* Body */}
               {activeIndex === index && item.features && (
                 <div className="flex flex-col md:flex-row gap-8 mt-6">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full md:w-[320px] rounded-xl object-cover"
-                  />
+                  {item.image && (
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full md:w-[320px] rounded-xl object-cover"
+                    />
+                  )}
 
                   <ul className="space-y-2">
                     {item.features.map((f, i) => (

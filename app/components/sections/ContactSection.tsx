@@ -3,18 +3,26 @@
 import { useState } from "react";
 import { FiPhone, FiMail } from "react-icons/fi";
 
+type FormData = {
+  name: string;
+  email: string;
+  message: string;
+};
+
 export default function ContactSection() {
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<FormData>({
     name: "",
     email: "",
     message: "",
   });
 
-  const handleChange = (e) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(form);
     // connect API here
@@ -33,10 +41,8 @@ export default function ContactSection() {
             Reach out today and let’s start building something remarkable.
           </p>
 
-          <form
-            onSubmit={handleSubmit}
-            className="space-y-6"
-          >
+          <form onSubmit={handleSubmit} className="space-y-6">
+            
             {/* Name */}
             <div>
               <label className="block text-sm mb-2 text-neutral-300">
