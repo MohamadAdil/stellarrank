@@ -7,6 +7,7 @@ import {
   FiX,
 } from "react-icons/fi";
 import Image from "next/image";
+import Button from "../ui/Button";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,18 +24,18 @@ export default function Header() {
 
   return (
     <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled
-        ? "bg-black/80 backdrop-blur-md shadow-md"
-        : "bg-transparent"
+      ? "bg-black/80 backdrop-blur-md shadow-md"
+      : "bg-transparent"
       }`}>
       <div className="container mx-auto px-6 flex items-center justify-between h-20">
 
         {/* Logo */}
         <Link href="/" className="flex items-center">
           <Image
-            src="/assets/icons/logo-stellarrank.svg"
+            src="/assets/icons/logo-stellarrank-white.svg"
             alt="StellarRank"
-            width={140}
-            height={40}
+            width={200}
+            height={60}
             className="object-contain"
             priority
           />
@@ -66,18 +67,12 @@ export default function Header() {
           <div className="flex items-center gap-4">
 
             {/* CTA */}
-            <a
+            <Button
+              label="Get Started"
+              className="hidden md:flex"
               href="#"
-              className="hidden md:flex items-center gap-2 bg-white text-black px-5 py-2 rounded-full text-sm font-medium hover:bg-gray-200 transition"
-            >
-              Get Started
-              <Image
-                src="/assets/icons/arrow-logo.svg"
-                alt="arrow"
-                width={16}
-                height={16}
-              />
-            </a>
+              icon="/assets/icons/arrow-logo.svg"
+            />
 
             {/* Mobile Toggle */}
             <button

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const Footer: React.FC = () => {
   return (
@@ -16,9 +17,16 @@ const Footer: React.FC = () => {
 
           {/* Logo + Description */}
           <div>
-            <h2 className="text-white text-lg font-semibold mb-4">
-              stellarRank
-            </h2>
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/assets/icons/logo-stellarrank-white.svg"
+                alt="StellarRank"
+                width={200}
+                height={60}
+                className="object-contain"
+                priority
+              />
+            </Link>
             <p className="text-sm leading-relaxed text-gray-400">
               AI-driven development and marketing for hospitality, travel & leisure.
             </p>

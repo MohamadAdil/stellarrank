@@ -4,122 +4,134 @@ import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
+import Button from "../ui/Button";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const AboutStackMotionSection = () => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
-useLayoutEffect(() => {
-  const ctx = gsap.context(() => {
-    const images = gsap.utils.toArray<HTMLElement>([
-      ".img-1",
-      ".img-2",
-      ".img-3",
-      ".img-4",
-    ]);
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      const images = gsap.utils.toArray<HTMLElement>([
+        ".img-1",
+        ".img-2",
+        ".img-3",
+        ".img-4",
+      ]);
 
-    gsap.set(images, {
-      x: 0,
-      y: 0,
-      rotate: 0,
-      force3D: true,
-      willChange: "transform",
-    });
+      gsap.set(images, {
+        x: 0,
+        y: 0,
+        rotate: 0,
+        force3D: true,
+      });
 
-    const getX = (dir: number) =>
-      (window.innerWidth * 0.5 - 100) * dir;
+      const getBounds = () => {
+        const rect = containerRef.current?.getBoundingClientRect();
+        return {
+          width: rect?.width || window.innerWidth,
+          height: rect?.height || window.innerHeight,
+        };
+      };
 
-    const getY = (dir: number) =>
-      (window.innerHeight * 0.5 - 100) * dir;
+      const getX = (dir: number) => {
+        const { width } = getBounds();
+        return (width * 0.4) * dir; // ✅ limited inside container
+      };
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
+      const getY = (dir: number) => {
+        const { height } = getBounds();
+        return (height * 0.4) * dir;
+      };
 
-        // ✅ START EXACTLY WHEN SECTION TOUCHES TOP
-        start: "top top",
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "+=120%",
+          scrub: 1,
+          pin: true,
+          pinSpacing: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      });
 
-        // ✅ END EXACTLY WHEN SECTION LEAVES
-        end: "bottom top",
-
-        // ✅ SMOOTH BUT NOT DELAYED
-        scrub: 0.8,
-
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-      },
-    });
-
-    tl.to(".img-1", {
-      x: () => getX(-1),
-      y: () => getY(1),
-      rotate: -7,
-      ease: "power1.out",
-    }, 0)
-      .to(".img-2", {
-        x: () => getX(1),
-        y: () => getY(1),
-        rotate: 7,
-        ease: "power1.out",
-      }, 0)
-      .to(".img-3", {
-        x: () => getX(1),
-        y: () => getY(-1),
-        rotate: -5,
-        ease: "power1.out",
-      }, 0)
-      .to(".img-4", {
+      tl.to(".img-1", {
         x: () => getX(-1),
-        y: () => getY(-1),
-        rotate: 7,
-        ease: "power1.out",
-      }, 0);
+        y: () => getY(1),
+        rotate: -8,
+      }, 0)
+        .to(".img-2", {
+          x: () => getX(1),
+          y: () => getY(1),
+          rotate: 8,
+        }, 0)
+        .to(".img-3", {
+          x: () => getX(1),
+          y: () => getY(-1),
+          rotate: -6,
+        }, 0)
+        .to(".img-4", {
+          x: () => getX(-1),
+          y: () => getY(-1),
+          rotate: 6,
+        }, 0);
 
-    ScrollTrigger.refresh();
-  }, sectionRef);
+    }, sectionRef);
 
-  return () => ctx.revert();
-}, []);
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section
       ref={sectionRef}
-      className="relative h-[100dvh] bg-black text-white overflow-hidden"
+      className="relative bg-black text-white overflow-hidden"
     >
-      <div className="sticky top-0 h-screen flex items-center justify-center">
+      {/* ✅ CONTAINER */}
+      <div
+        ref={containerRef}
+        className="container h-screen flex items-center justify-center relative"
+      >
 
         {/* TEXT */}
-        <div className="relative z-10 text-center max-w-3xl px-6">
+        <div className="relative z-10 text-center max-w-3xl">
           <h2 className="text-3xl md:text-5xl font-semibold leading-tight">
             A unified ecosystem of web, brand, content & performance
             built exclusively for hospitality
           </h2>
 
           <div className="mt-6">
-            <button className="bg-white text-black px-5 py-2 rounded-full text-sm">
-              Get Started
-            </button>
+            <Button label="Get Started"
+              className="hidden"
+              href="#"
+              size="lg"
+              icon="/assets/icons/arrow-logo.svg" />
           </div>
         </div>
 
         {/* IMAGES */}
-
-        <div className="img-1 absolute w-44 md:w-72 will-change-transform">
-          <Image src="/assets/images/abt-img-1.jpeg" alt="" width={300} height={300} className="shadow-2xl" />
-        </div>
-
-        <div className="img-2 absolute w-44 md:w-72 will-change-transform">
-          <Image src="/assets/images/abt-img-2.jpeg" alt="" width={300} height={300} className="shadow-2xl" />
-        </div>
-
-        <div className="img-3 absolute w-44 md:w-72 will-change-transform">
-          <Image src="/assets/images/abt-img-3.jpeg" alt="" width={300} height={300} className="shadow-2xl" />
-        </div>
-
-        <div className="img-4 absolute w-44 md:w-72 will-change-transform">
-          <Image src="/assets/images/abt-img-4.avif" alt="" width={300} height={300} className="shadow-2xl" />
-        </div>
+        {[
+          { cls: "img-1", src: "/assets/images/abt-img-1.jpeg" },
+          { cls: "img-2", src: "/assets/images/abt-img-2.jpeg" },
+          { cls: "img-3", src: "/assets/images/abt-img-3.jpeg" },
+          { cls: "img-4", src: "/assets/images/abt-img-4.avif" },
+        ].map((img, i) => (
+          <div
+            key={i}
+            className={`${img.cls} absolute w-72 h-72 md:w-92 md:h-92 aspect-square`}
+          >
+            <Image
+              src={img.src}
+              alt=""
+              width={400}
+              height={400}
+              className="shadow-2xl will-change-transform"
+            />
+          </div>
+        ))}
 
       </div>
     </section>
