@@ -34,17 +34,22 @@ export default function Button({
   return (
     <Link
       href={href}
-      className={`inline-flex items-center gap-2 rounded-full font-medium transition ${variantStyles[variant]} ${sizeStyles[size]} ${className}`}
+      className={`group inline-flex items-center gap-2 rounded-full font-medium transition-all duration-300 ease-out ${variantStyles[variant]} ${sizeStyles[size]} ${className}`}
     >
-      {label}
+      <span className="relative">
+        {label}
+      </span>
 
       {icon && (
-        <Image
-          src={icon}
-          alt="icon"
-          width={16}
-          height={16}
-        />
+        <span className="flex items-center justify-center transition-all duration-300 ease-out  ">
+          <Image
+            src={icon}
+            alt="icon"
+            width={16}
+            height={16}
+            className="transition-transform duration-300 ease-out group-hover:rotate-[45deg]"
+          />
+        </span>
       )}
     </Link>
   );
