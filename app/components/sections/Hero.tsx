@@ -3,6 +3,7 @@
 import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import Image from "next/image";
+import Button from "../ui/Button";
 
 const Hero = () => {
   const ref = useRef(null);
@@ -18,38 +19,38 @@ const Hero = () => {
 
       const tl = gsap.timeline({ delay: 1.2 });
 
-  tl.fromTo(
-  ".hero-title",
-  { y: 20, opacity: 0 },
-  {
-    y: 0,
-    opacity: 1,
-    duration: 1,
-    ease: "power2.out",
-  }
-)
-  .fromTo(
-    ".hero-text",
-    { y: 20, opacity: 0 },
-    {
-      y: 0,
-      opacity: 1,
-      duration: 0.8,
-      ease: "power2.out",
-    },
-    "-=0.5"
-  )
-  .fromTo(
-    ".hero-btn",
-    { y: 20, opacity: 0 }, // ✅ removed scale
-    {
-      y: 0,
-      opacity: 1,
-      duration: 0.6,
-      ease: "power2.out",
-    },
-    "-=0.4"
-  );
+      tl.fromTo(
+        ".hero-title",
+        { y: 20, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power2.out",
+        }
+      )
+        .fromTo(
+          ".hero-text",
+          { y: 20, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: "power2.out",
+          },
+          "-=0.5"
+        )
+        .fromTo(
+          ".hero-btn",
+          { y: 20, opacity: 0 }, // ✅ removed scale
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            ease: "power2.out",
+          },
+          "-=0.4"
+        );
     }, ref);
 
     return () => ctx.revert();
@@ -84,18 +85,13 @@ const Hero = () => {
           </p>
 
           <div className="hero-btn mt-8 flex justify-start will-change-transform">
-            <a
+            <Button
+              label="Get Started"
+              className="hidden md:flex"
+              size="lg"
               href="#"
-              className="flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full font-medium hover:bg-gray-200 transition"
-            >
-              Get Started
-              <Image
-                src="/assets/icons/arrow-logo.svg"
-                alt="arrow"
-                width={20}
-                height={20}
-              />
-            </a>
+              icon="/assets/icons/arrow-logo.svg"
+            />
           </div>
 
         </div>

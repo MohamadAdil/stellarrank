@@ -15,6 +15,7 @@ import { LuBrain } from "react-icons/lu";
 import { FiHeart } from "react-icons/fi";
 import ResultsSection from "../components/sections/ResultsSection";
 import AiFutureSection from "../components/sections/AiFutureSection";
+import SolutionsSection from "../components/sections/SolutionsSection";
 export default function ComingSoonHome() {
   return (
     <>
@@ -23,6 +24,7 @@ export default function ComingSoonHome() {
       <ExpandOnScrollSection />
       <BenefitsSection />
       <WorksSection />
+      <SolutionsSection/>
       {/* <ServicesSection /> */}
       {/* <TestimonialSection />
       <FAQSection />
