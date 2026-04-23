@@ -1,4 +1,3 @@
-// components/ui/Button.tsx
 import Link from "next/link";
 import Image from "next/image";
 
@@ -6,7 +5,7 @@ type ButtonProps = {
   label: string;
   href?: string;
   icon?: string;
-  variant?: "primary" | "white" | "outline";
+  variant?: "primary" | "white" | "outline" | "blue";
   size?: "sm" | "md" | "lg";
   className?: string;
 };
@@ -15,6 +14,7 @@ const variantStyles = {
   primary: "bg-black text-white hover:bg-black/80",
   white: "bg-white text-black hover:bg-gray-200",
   outline: "border border-black text-black hover:bg-black hover:text-white",
+  blue: "bg-[#1D66CF] text-white hover:bg-[#1554a8]",
 };
 
 const sizeStyles = {
@@ -36,18 +36,17 @@ export default function Button({
       href={href}
       className={`group inline-flex items-center gap-2 rounded-full font-medium transition-all duration-300 ease-out ${variantStyles[variant]} ${sizeStyles[size]} ${className}`}
     >
-      <span className="relative">
-        {label}
-      </span>
+      <span>{label}</span>
 
       {icon && (
-        <span className="flex items-center justify-center transition-all duration-300 ease-out  ">
+        <span className="flex items-center justify-center">
           <Image
             src={icon}
             alt="icon"
             width={16}
             height={16}
-            className="transition-transform duration-300 ease-out group-hover:rotate-[45deg]"
+            className={`transition-transform duration-300 ease-out group-hover:rotate-[45deg] ${variant === "white" ? "" : "filter brightness-0 invert"
+              }`}
           />
         </span>
       )}

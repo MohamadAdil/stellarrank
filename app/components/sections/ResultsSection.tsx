@@ -5,7 +5,7 @@ export default function ResultsSection() {
     <section className="bg-black text-white py-20 px-6">
       
       {/* HEADER */}
-      <div className="max-w-6xl mx-auto mb-12">
+      <div className="container mb-12">
         <span className="text-xs border px-3 py-1 rounded-full opacity-70">
           CLIENT SUCCESS
         </span>
@@ -20,7 +20,7 @@ export default function ResultsSection() {
       </div>
 
       {/* GRID */}
-      <div className="max-w-6xl mx-auto space-y-6">
+      <div className="container space-y-6">
 
         {/* LARGE CARD */}
         <CaseStudyCard

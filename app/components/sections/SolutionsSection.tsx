@@ -47,112 +47,111 @@ export default function SolutionsSection() {
 
   return (
     <section className="bg-black text-white py-16 px-6 lg:px-20">
+      <div className="container">
 
-      {/* Heading */}
-      <div className="text-center max-w-4xl mx-auto mb-14">
-        <h2 className="text-2xl md:text-4xl lg:text-5xl font-light leading-snug">
-          An integrated ecosystem of web branding, content, and performance{" "}
-          <span className="text-gray-400">
-            built for hospitality.
-          </span>
-        </h2>
-      </div>
+        {/* Heading */}
+        <div className="text-center max-w-4xl mx-auto mb-14">
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-light leading-snug">
+            An integrated ecosystem of web branding, content, and performance{" "}
+            <span className="text-gray-400">
+              built for hospitality.
+            </span>
+          </h2>
+        </div>
 
-      {/* Layout */}
-      <div className="grid lg:grid-cols-2 gap-10 items-start">
+        {/* Layout */}
+        <div className="grid lg:grid-cols-2 gap-10 items-start">
 
-        {/* LEFT LIST (Accordion on mobile) */}
-        <div className="space-y-4">
-          {solutions.map((item, index) => {
-            const isActive = active === index;
+          {/* LEFT LIST (Accordion on mobile) */}
+          <div className="space-y-4">
+            {solutions.map((item, index) => {
+              const isActive = active === index;
 
-            return (
-              <div
-                key={item.id}
-                onClick={() => setActive(index)}
-                className={`cursor-pointer p-6 rounded-[8px] border transition-all duration-300
-                ${
-                  isActive
-                    ? "bg-[#1D66CF] border-[#1D66CF]"
-                    : "border-transparent hover:border-[#1D66CF] hover:bg-[#1D66CF]"
-                }`}
-              >
-                {/* Top */}
-                <div className="flex items-center justify-between mb-3">
-                  <p className="text-[12px] leading-[16px] font-normal uppercase text-white/50">
-                    {item.id}
-                  </p>
-                  <span className="text-white/30">—</span>
+              return (
+                <div
+                  key={item.id}
+                  onClick={() => setActive(index)}
+                  className={`cursor-pointer p-6 rounded-[8px] border transition-all duration-300
+                ${isActive
+                      ? "bg-[#1D66CF] border-[#1D66CF]"
+                      : "border-transparent hover:border-[#1D66CF] hover:bg-[#1D66CF]"
+                    }`}
+                >
+                  {/* Top */}
+                  <div className="flex items-center justify-between mb-3">
+                    <p className="text-[12px] leading-[16px] font-normal uppercase text-white/50">
+                      {item.id}
+                    </p>
+                    <span className="text-white/30">—</span>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-[30px] leading-[36px] tracking-[-1.75px] font-medium text-white">
+                    {item.title}
+                  </h3>
+
+                  {/* Accordion content (mobile only) */}
+                  <div
+                    className={`overflow-hidden transition-all duration-500 lg:hidden ${isActive ? "max-h-[500px] mt-4" : "max-h-0"
+                      }`}
+                  >
+                    <p className="text-[14px] leading-[22.75px] font-light text-white/70 mb-4">
+                      {item.desc}
+                    </p>
+
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      width={800}
+                      height={500}
+                      className="w-full h-[220px] object-cover rounded-md"
+                    />
+                  </div>
                 </div>
+              );
+            })}
+          </div>
 
-                {/* Title */}
-                <h3 className="text-[30px] leading-[36px] tracking-[-1.75px] font-medium text-white">
-                  {item.title}
+          {/* RIGHT CARD (Desktop only) */}
+          <div className="relative hidden lg:block">
+            <div className="rounded-xl overflow-hidden shadow-lg">
+
+              <Image
+                src={solutions[active].image}
+                alt={solutions[active].title}
+                width={800}
+                height={500}
+                className="w-full h-[300px] md:h-[400px] object-cover"
+                priority
+              />
+
+              <div className="p-6">
+                <h3 className="text-[36px] leading-[40px] font-medium text-white mb-2">
+                  {solutions[active].title}
                 </h3>
 
-                {/* Accordion content (mobile only) */}
-                <div
-                  className={`overflow-hidden transition-all duration-500 lg:hidden ${
-                    isActive ? "max-h-[500px] mt-4" : "max-h-0"
-                  }`}
-                >
-                  <p className="text-[14px] leading-[22.75px] font-light text-white/70 mb-4">
-                    {item.desc}
-                  </p>
+                <p className="text-[16px] leading-[24px] font-light text-white/70">
+                  {solutions[active].desc}
+                </p>
 
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    width={800}
-                    height={500}
-                    className="w-full h-[220px] object-cover rounded-md"
-                  />
+                {/* Indicators */}
+                <div className="flex gap-2 mt-4">
+                  {solutions.map((_, i) => (
+                    <div
+                      key={i}
+                      className={`h-[4px] rounded-full transition-all duration-300 ${i === active
+                          ? "w-[48px] bg-[#1D66CF]"
+                          : "w-[32px] bg-gray-500/50"
+                        }`}
+                    />
+                  ))}
                 </div>
               </div>
-            );
-          })}
-        </div>
 
-        {/* RIGHT CARD (Desktop only) */}
-        <div className="relative hidden lg:block">
-          <div className="rounded-xl overflow-hidden shadow-lg">
-
-            <Image
-              src={solutions[active].image}
-              alt={solutions[active].title}
-              width={800}
-              height={500}
-              className="w-full h-[300px] md:h-[400px] object-cover"
-              priority
-            />
-
-            <div className="p-6">
-              <h3 className="text-[36px] leading-[40px] font-medium text-white mb-2">
-                {solutions[active].title}
-              </h3>
-
-              <p className="text-[16px] leading-[24px] font-light text-white/70">
-                {solutions[active].desc}
-              </p>
-
-              {/* Indicators */}
-              <div className="flex gap-2 mt-4">
-                {solutions.map((_, i) => (
-                  <div
-                    key={i}
-                    className={`h-[4px] rounded-full transition-all duration-300 ${
-                      i === active
-                        ? "w-[48px] bg-[#1D66CF]"
-                        : "w-[32px] bg-gray-500/50"
-                    }`}
-                  />
-                ))}
-              </div>
             </div>
-
           </div>
-        </div>
 
+        </div>
       </div>
     </section>
   );

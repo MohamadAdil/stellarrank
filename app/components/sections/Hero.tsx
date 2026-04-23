@@ -61,16 +61,25 @@ const Hero = () => {
       ref={ref}
       className="relative min-h-screen flex items-center justify-center bg-black text-white overflow-hidden"
     >
-      {/* Background */}
+      {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
           src="/assets/images/hero-bg.png"
           alt="Hero Background"
           fill
           priority
-          className="object-cover opacity-40"
+          className="object-cover"
         />
       </div>
+
+      {/* Gradient Overlay */}
+      <div
+        className="absolute inset-0 z-10"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(255, 255, 255, 0.72) 0%, rgba(45, 45, 45, 0.5) 50%, rgba(0, 0, 0, 0.9) 100%)",
+        }}
+      />
 
       {/* Content */}
       <div className="container">

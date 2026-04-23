@@ -10,74 +10,42 @@ gsap.registerPlugin(ScrollTrigger);
 
 const AboutStackMotionSection = () => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
-  const containerRef = useRef<HTMLDivElement | null>(null);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      const images = gsap.utils.toArray<HTMLElement>([
-        ".img-1",
-        ".img-2",
-        ".img-3",
-        ".img-4",
-      ]);
-
-      gsap.set(images, {
-        x: 0,
-        y: 0,
-        rotate: 0,
-        force3D: true,
-      });
-
-      const getBounds = () => {
-        const rect = containerRef.current?.getBoundingClientRect();
-        return {
-          width: rect?.width || window.innerWidth,
-          height: rect?.height || window.innerHeight,
-        };
-      };
-
-      const getX = (dir: number) => {
-        const { width } = getBounds();
-        return (width * 0.4) * dir; // ✅ limited inside container
-      };
-
-      const getY = (dir: number) => {
-        const { height } = getBounds();
-        return (height * 0.4) * dir;
-      };
 
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top top",
-          end: "+=120%",
-          scrub: 1,
-          pin: true,
-          pinSpacing: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 0.2,
         },
       });
 
       tl.to(".img-1", {
-        x: () => getX(-1),
-        y: () => getY(1),
-        rotate: -8,
+        x: -400,
+        y: 300,
+        rotate: -10,
+        ease: "none",
       }, 0)
         .to(".img-2", {
-          x: () => getX(1),
-          y: () => getY(1),
-          rotate: 8,
+          x: 400,
+          y: 300,
+          rotate: 10,
+          ease: "none",
         }, 0)
         .to(".img-3", {
-          x: () => getX(1),
-          y: () => getY(-1),
-          rotate: -6,
+          x: 400,
+          y: -300,
+          rotate: -8,
+          ease: "none",
         }, 0)
         .to(".img-4", {
-          x: () => getX(-1),
-          y: () => getY(-1),
-          rotate: 6,
+          x: -400,
+          y: -300,
+          rotate: 8,
+          ease: "none",
         }, 0);
 
     }, sectionRef);
@@ -88,13 +56,9 @@ const AboutStackMotionSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-black text-white overflow-hidden"
+      className="relative min-h-[100dvh] flex items-center bg-black text-white py-32 overflow-hidden"
     >
-      {/* ✅ CONTAINER */}
-      <div
-        ref={containerRef}
-        className="container h-screen flex items-center justify-center relative"
-      >
+      <div className="container flex items-center justify-center relative">
 
         {/* TEXT */}
         <div className="relative z-10 text-center max-w-3xl">
@@ -104,11 +68,13 @@ const AboutStackMotionSection = () => {
           </h2>
 
           <div className="mt-6">
-            <Button label="Get Started"
+            <Button
+              label="Get Started"
               className="hidden"
               href="#"
               size="lg"
-              icon="/assets/icons/arrow-logo.svg" />
+              icon="/assets/icons/arrow-logo.svg"
+            />
           </div>
         </div>
 
@@ -121,7 +87,7 @@ const AboutStackMotionSection = () => {
         ].map((img, i) => (
           <div
             key={i}
-            className={`${img.cls} absolute w-72 h-72 md:w-92 md:h-92 aspect-square`}
+            className={`${img.cls} absolute w-72 h-72 md:w-96 md:h-96`}
           >
             <Image
               src={img.src}

@@ -24,7 +24,7 @@ export default function Header() {
 
   return (
     <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled
-      ? "bg-black/80 backdrop-blur-md shadow-md"
+      ? "bg-white/80 backdrop-blur-md shadow-md"
       : "bg-transparent"
       }`}>
       <div className="container mx-auto px-6 flex items-center justify-between h-20">
@@ -32,7 +32,7 @@ export default function Header() {
         {/* Logo */}
         <Link href="/" className="flex items-center">
           <Image
-            src="/assets/icons/logo-stellarrank-white.svg"
+            src="/assets/icons/logo-stellarrank.svg"
             alt="StellarRank"
             width={200}
             height={60}
@@ -45,7 +45,7 @@ export default function Header() {
         <div className="flex items-center gap-8">
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-white">
+          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-black">
             <Link href="/" className="hover:text-blue-500 transition">
               Home
             </Link>
@@ -71,6 +71,8 @@ export default function Header() {
               label="Get Started"
               className="hidden md:flex"
               href="#"
+              size="lg"
+              variant="blue"
               icon="/assets/icons/arrow-logo.svg"
             />
 
